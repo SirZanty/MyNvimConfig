@@ -39,14 +39,11 @@ end, { desc = "Format file" }) -- Format current buffer (async; LSP fallback)
 keymap("n", "<X1Mouse>", "<C-o>", { desc = "Jump back (mouse)" })
 keymap("n", "<X2Mouse>", "<C-i>", { desc = "Jump forward (mouse)" })
 
--- Folding helpers (Tree-sitter aware); kept in a separate module
-local folds = require("config.folds")
-keymap("n", "<leader>zd", folds.collapse_to_definitions, { desc = "Fold all function/class definitions" })
-keymap("n", "<leader>zf", folds.fold_current, { desc = "Fold current function/class" })
-keymap("n", "<leader>zu", folds.unfold_current, { desc = "Unfold current function/class" })
-keymap("n", "<leader>zt", folds.toggle_current, { desc = "Toggle fold at cursor" })
-keymap("n", "<leader>za", folds.open_all, { desc = "Open all folds" })
 
 -- Start xbindkeys automatically when Neovim starts, and stop it on exit
 -- Managed by the `config.xbindkeys` module to keep keymaps clean and focused
 require("config.xbindkeys").setup_autocmds()
+
+-- Atajos para plegado de código (folding) con nvim-ufo
+keymap("n", "zR", function() require("ufo").openAllFolds() end, { desc = "Abrir todos los pliegues" })
+keymap("n", "zM", function() require("ufo").closeAllFolds() end, { desc = "Cerrar todos los pliegues" })
